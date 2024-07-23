@@ -239,137 +239,122 @@
                     <!-- uploads -->
                     <div class="flex flex-col gap-10 mt-4">
                     <form id="callForm" action="{{ route('submit.call') }}" method="POST" enctype="multipart/form-data" class="space-y-2">
-                    @csrf
-                        <div id='call-instructions'>
-                            <!-- call instruction -->
-                            <div class='flex items-start justify-center rounded-md bg-white p-4'>
-                                <div class="w-full bg-white rounded-lg shadow-md p-6">
-                                    <h2 class="text-lg font-medium text-gray-900 mb-4">Enter your call instructions</h2>
-                                    <InstructionList instructions={instructions} />
-                                    <textarea
-                                    id="call-instructions-textarea"
-                                        class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        name="call_instructions" rows={5}
-                                        placeholder="Start typing here..." ></textarea>
-                                    <div class="text-right text-sm text-gray-600 mt-2" id="word-count-call">
-                                        Letter count: 0 / 300
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="follow-up">
-                            <!-- follow up -->
-                            <div class='flex items-start justify-center rounded-md bg-white p-4'>
-                                <div class="w-full bg-white rounded-lg shadow-md p-6">
-                                    <h2 class="text-lg font-medium text-gray-900 mb-4">Enter your follow-up instructions
-                                    </h2>
-                                    <InstructionList instructions={instructions} />
-                                    <textarea
-                                    id="follow-instructions-textarea"
-                                        class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        name="follow_up_instructions" onChange={handleTextChange} rows={5}
-                                        placeholder="Start typing here..." ></textarea>
-                                    <div class="text-right text-sm text-gray-600 mt-2" id="word-count-follow">
-                                        Letter count: 0 / 300
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="upload-file" class="">
-                            <!-- CSV upload -->
-                            <div class="flex flex-col items-center justify-center bg-white p-6 rounded-md shadow-md">
-                              <div class="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
-                                <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
-                                  <h2 class="text-lg font-medium text-gray-900">Upload CSV Files</h2>
-                                  <div class="mt-4 sm:mt-0">
-                                    <a href="/sample.csv" download="sample.csv" class="text-md text-red-600 hover:text-red-800">
-                                      Download Sample CSV
-                                    </a>
-                                  </div>
-                                </div>
-                                <p class="text-sm text-gray-600 mb-4">
-                                  Please upload CSV files containing the following fields:
-                                  <ul class="text-sm text-gray-600 mb-4 list-disc pl-5">
-                                    <li>Client's Business Name as <strong>Business Name</strong></li>
-                                    <li>Client's Email as <strong>Email ID</strong></li>
-                                    <li>Client's Phone number as <strong>Phone</strong></li>
-                                    <li>Client's Website as <strong>Website</strong></li>
-                                    <li>Founder's Name as <strong>Name</strong></li>
-                                  </ul>
-                                </p>
-                                <div>
-                                  <label for="file-upload" class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 cursor-pointer hover:bg-gray-50 transition duration-150 ease-in-out">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="36" height="36" fill="#4CAF50">
-                                      <path d="M6 3v18h12V3H6zm2 2h8v2H8V5zm0 4h8v2H8V9zm0 4h6v2H8v-2z" />
-                                    </svg>
-                                    <span class="mt-2 text-sm text-gray-600">Click to upload</span>
-                                    <input id="file-upload" name="files[]" type="file" accept=".csv" class="sr-only" multiple />
-                                  </label>
-                                  <div class="mt-6">
-                                    <!-- <h3 class="text-lg font-semibold mb-2 text-gray-800">Selected Files:</h3> -->
-                                    <ul class="divide-y divide-gray-300"  id="file-list">
-                                      <!-- Sample list items -->
-                                      <!-- <li class="flex items-center justify-between py-2 bg-gray-100 px-2 rounded-md"> -->
-                                        <!-- <span class="text-sm text-gray-700">filename.csv</span> -->
-                                        <!-- <button class="text-red-500 hover:text-red-700 focus:outline-none"> -->
-                                          <!-- Remove -->
-                                        <!-- </button> -->
-                                      <!-- </li> -->
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                        <div class="bg-white rounded-md p-4" id="schedule-calls">
-                            <div class="flex flex-wrap justify-between items-center">
-                                <div class="w-full sm:w-auto mb-4 sm:mb-0">
-                                    <label htmlFor="callCapacity" class="text-slate-700 font-bold">
-                                        Select Calls per Day:
-                                    </label>
-                                    <span
-                                        class="inline-block ml-1 px-1 py-0 bg-yellow-500 text-white text-[10px] font-semibold rounded">
-                                        PRO
-                                    </span>
-                                    <select disabled id="callCapacity"
-                                        class="block mt-1 border-[1px] h-7 border-gray-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 cursor-not-allowed w-full sm:w-auto"
-                                        value={selectedCapacity} onChange={handleCapacityChange}>
-                                        <option value={50}>All calls</option>
-                                        <option value={50}>50 calls/day</option>
-                                        <option value={100}>100 calls/day</option>
-                                        <option value={200}>200 calls/day</option>
-                                    </select>
-                                </div>
+    @csrf
+    <div id='call-instructions'>
+        <div class='flex items-start justify-center rounded-md bg-white p-4'>
+            <div class="w-full bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">Enter your call instructions</h2>
+                <textarea
+                    id="call-instructions-textarea"
+                    class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    name="call_instructions" rows="5"
+                    placeholder="Start typing here..."></textarea>
+                <div class="text-right text-sm text-gray-600 mt-2" id="word-count-call">
+                    Letter count: 0 / 300
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="follow-up">
+        <div class='flex items-start justify-center rounded-md bg-white p-4'>
+            <div class="w-full bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">Enter your follow-up instructions</h2>
+                <textarea
+                    id="follow-instructions-textarea"
+                    class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    name="follow_up_instructions" rows="5"
+                    placeholder="Start typing here..."></textarea>
+                <div class="text-right text-sm text-gray-600 mt-2" id="word-count-follow">
+                    Letter count: 0 / 300
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="upload-file">
+        <div class="flex flex-col items-center justify-center bg-white p-6 rounded-md shadow-md">
+            <div class="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+                    <h2 class="text-lg font-medium text-gray-900">Upload CSV Files</h2>
+                    <div class="mt-4 sm:mt-0">
+                        <a href="/sample.csv" download="sample.csv" class="text-md text-red-600 hover:text-red-800">
+                            Download Sample CSV
+                        </a>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">
+                    Please upload CSV files containing the following fields:
+                    <ul class="text-sm text-gray-600 mb-4 list-disc pl-5">
+                        <li>Client's Business Name as <strong>Business Name</strong></li>
+                        <li>Client's Email as <strong>Email ID</strong></li>
+                        <li>Client's Phone number as <strong>Phone</strong></li>
+                        <li>Client's Website as <strong>Website</strong></li>
+                        <li>Founder's Name as <strong>Name</strong></li>
+                    </ul>
+                </p>
+                <div>
+                    <label for="file-upload" class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 cursor-pointer hover:bg-gray-50 transition duration-150 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="36" height="36" fill="#4CAF50">
+                            <path d="M6 3v18h12V3H6zm2 2h8v2H8V5zm0 4h8v2H8V9zm0 4h6v2H8v-2z" />
+                        </svg>
+                        <span class="mt-2 text-sm text-gray-600">Click to upload</span>
+                        <input id="file-upload" name="files[]" type="file" accept=".csv" class="sr-only" multiple />
 
-                                <div class="w-full sm:w-auto mb-4 sm:mb-0">
-                                    <label htmlFor="startDate" class="text-slate-700 font-bold">
-                                        Start Date:
-                                    </label>
-                                    <span
-                                        class="inline-block ml-1 px-1 py-0 bg-yellow-500 text-white text-[10px] font-semibold rounded">
-                                        PRO
-                                    </span>
-                                    <input disabled type="date" id="startDate" name="start_date" 
-                                        class="block mt-1 border-[1px] h-7 border-gray-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 cursor-not-allowed w-full sm:w-auto"
-                                          />
-                                </div>
-
-                                <button
-                                id="startCall"
-                                    class="w-full sm:w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                    onClick={handleStartCall}>
-                                    <svg class="w-6 h-6 inline-block mr-2" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd"
-                                            d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12zm1-8a1 1 0 100-2 1 1 0 000 2z"
-                                            clipRule="evenodd" />
-                                    </svg>
-                                    Start Call
-                                </button>
-                            </div>
-                        </div>
-                        </form>
+                    </label>
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">Selected Files:</h3>
+                        <ul class="divide-y divide-gray-300" id="file-list">
+                            <!-- List of selected files will appear here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-md p-4" id="schedule-calls">
+        <div class="flex flex-wrap justify-between items-center">
+            <div class="w-full sm:w-auto mb-4 sm:mb-0">
+                <label htmlFor="callCapacity" class="text-slate-700 font-bold">
+                    Select Calls per Day:
+                </label>
+                <span
+                    class="inline-block ml-1 px-1 py-0 bg-yellow-500 text-white text-[10px] font-semibold rounded">
+                    PRO
+                </span>
+                <select disabled id="callCapacity"
+                    class="block mt-1 border-[1px] h-7 border-gray-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 cursor-not-allowed w-full sm:w-auto"
+                    value={selectedCapacity} onChange={handleCapacityChange}>
+                    <option value={50}>All calls</option>
+                    <option value={50}>50 calls/day</option>
+                    <option value={100}>100 calls/day</option>
+                    <option value={200}>200 calls/day</option>
+                </select>
+            </div>
+            <div class="w-full sm:w-auto mb-4 sm:mb-0">
+                <label htmlFor="startDate" class="text-slate-700 font-bold">
+                    Start Date:
+                </label>
+                <span
+                    class="inline-block ml-1 px-1 py-0 bg-yellow-500 text-white text-[10px] font-semibold rounded">
+                    PRO
+                </span>
+                <input disabled type="date" id="startDate" name="start_date"
+                    class="block mt-1 border-[1px] h-7 border-gray-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 cursor-not-allowed w-full sm:w-auto" />
+            </div>
+            <button
+                id="startCall"
+                class="w-full sm:w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                <svg class="w-6 h-6 inline-block mr-2" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd"
+                        d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12zm1-8a1 1 0 100-2 1 1 0 000 2z"
+                        clipRule="evenodd" />
+                </svg>
+                Start Call
+            </button>
+        </div>
+    </div>
+</form>
                     </div>
 
                 </div>
@@ -381,6 +366,29 @@
     
     </body>
     <script>
+
+document.getElementById('file-upload').addEventListener('change', function(event) {
+    const fileList = event.target.files;
+    const fileListElement = document.getElementById('file-list');
+    fileListElement.innerHTML = ''; // Clear previous list
+
+    Array.from(fileList).forEach(file => {
+        const listItem = document.createElement('li');
+        listItem.className = 'flex items-center justify-between py-2 bg-gray-100 px-2 rounded-md';
+        listItem.innerHTML = `
+            <span class="text-sm text-gray-700">${file.name}</span>
+            <button type="button" class="text-red-500 hover:text-red-700 focus:outline-none" onclick="removeFile(this)">
+                Remove
+            </button>
+        `;
+        fileListElement.appendChild(listItem);
+    });
+});
+
+function removeFile(button) {
+    const listItem = button.closest('li');
+    listItem.remove();
+}
         
         const textareaCall= document.getElementById('call-instructions-textarea');
         const textareaFollow= document.getElementById('follow-instructions-textarea');

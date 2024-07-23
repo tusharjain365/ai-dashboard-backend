@@ -132,6 +132,7 @@ class CallController extends Controller
     public function submit(Request $request)
     {
         // Validate the request
+        dd($request->all());
         $request->validate([
             'call_instructions' => 'required|string|max:300',
             'follow_up_instructions' => 'required|string|max:300',

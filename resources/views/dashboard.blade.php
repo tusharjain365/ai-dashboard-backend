@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
-    <title>Document</title>
+    <title>Dashboard</title>
 </head>
 <body>
 <div class="">
@@ -12,7 +12,7 @@
 
             <!-- sidebar -->
             <aside
-                class="absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 -translate-x-full">
+                class="absolute left-0 top-0 z-[999] flex h-screen w-72.5 flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 -translate-x-full">
                 <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
                     <a href="/">
                         <img src={Logo} alt="Logo" />
@@ -160,6 +160,61 @@
                 </header>
 
                 <main>
+
+                <!-- Follow up Modal -->
+                <div id="modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+                    <div class="flex items-center justify-center min-h-screen px-4">
+                        <div class="fixed inset-0 transition-opacity">
+                            <div class="absolute inset-0 bg-gray-500 opacity-75 right-2"></div>
+                        </div>
+
+                        <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
+                            <button id="close-modal" class="absolute right-2 top-2 bg-red-500 hover:bg-red-700 text-white font-bold py-[3px] px-[10px] rounded">
+                                X
+                            </button>
+                            <div class="bg-white p-6">
+                            <h2 class="text-lg font-medium text-gray-900 mb-4">Enter your follow-up instructions</h2>
+                            <form method="post">
+                                @csrf
+                            <textarea
+                                id="follow-instructions-textarea"
+                                class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                name="follow_up_instructions" rows="5"
+                                placeholder="Start typing here..."></textarea>
+                            <div class="text-right text-sm text-gray-600 mt-2" id="word-count-follow">
+                                Letter count: 0 / 300
+                            </div>
+                            <div class="mt-4 flex justify-end">
+                                <button id="" class="bg-[#8b3dff] text-white font-bold py-[3px] px-2 rounded">
+                                    Send
+                                </button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Details modal -->
+                <div id="detailsModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+                    <div class="flex items-center justify-center min-h-screen px-4">
+                        <div class="fixed inset-0 transition-opacity">
+                            <div class="absolute inset-0 bg-gray-500 opacity-75 right-2"></div>
+                        </div>
+
+                        <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
+                            <button id="closeModal" class="absolute right-2 top-2 bg-red-500 hover:bg-red-700 text-white font-bold py-[3px] px-[10px] rounded">
+                                X
+                            </button>
+                            <div class="bg-white p-6">
+                            <h2 class="text-lg font-medium text-gray-900 mb-4">Details</h2>
+                            <div id="modalContent">
+                                <!-- Details will be populated here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
 
                     <!-- cards -->
                     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -332,6 +387,7 @@
                                 <div class="shadow-lg border p-2 h-[70vh] overflow-auto">
                                     <div class='flex justify-end items-center mr-4'>
                                         <button
+                                        id="open-modal"
                                             class="text-white hover:text-white text-sm flex  justify-center gap-2 bg-green-600 p-2  rounded-lg">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 strokeWidth="1.5" stroke="currentColor" class="w-5 h-5">
@@ -390,7 +446,9 @@
                                                 <td class="px-6 py-2 overflow-x-auto space-y-2">
 
                                                     <button
-                                                        class="text-white hover:text-white text-sm flex justify-center items-center bg-blue-400 p-2 rounded-lg">
+                                                        class="text-white hover:text-white text-sm flex justify-center items-center bg-blue-400 p-2 rounded-lg"
+                                                        onclick="displayDetails('{item.field1}', '{item.field2}', '{item.field3}', '{item.field4}', '{item.field5}', '{item.status}')"
+                                                        >
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
                                                             class="w-5 h-5">
@@ -417,7 +475,9 @@
                                                 <td class="px-6 py-2 overflow-x-auto space-y-2">
 
                                                     <button
-                                                        class="text-white hover:text-white text-sm flex justify-center items-center bg-blue-400 p-2 rounded-lg">
+                                                        class="text-white hover:text-white text-sm flex justify-center items-center bg-blue-400 p-2 rounded-lg"
+                                                        onclick="displayDetails('{item.field1}', '{item.field2}', '{item.field3}', '{item.field4}', '{item.field5}', '{item.status}')"
+                                                        >
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
                                                             class="w-5 h-5">
@@ -441,4 +501,63 @@
         </div>
     </div>
 </body>
+<script>
+    document.getElementById('close-modal').addEventListener('click', function() {
+        document.getElementById('modal').classList.add('hidden');
+    });
+
+    document.getElementById('open-modal').addEventListener('click', function() {
+        document.getElementById('modal').classList.remove('hidden');
+    });     
+    const wordLimit = 300;
+    const wordCountDisplayFollow = document.getElementById('word-count-follow');
+    const textareaFollow= document.getElementById('follow-instructions-textarea');
+
+    textareaFollow.addEventListener('input', () => {
+            const text = textareaFollow.value;
+            const wordCount = text.trim().split(/\s+/).filter(Boolean).length; // Count words
+            
+            if (wordCount > wordLimit) {
+                // Truncate text to fit word limit
+                const words = text.trim().split(/\s+/).slice(0, wordLimit).join(' ');
+                textareaFollow.value = words;
+            }
+
+            // Update the display with current word count
+            wordCountDisplayFollow.textContent = `Letter count: ${textareaFollow.value.length} / 300`;
+        });
+    function displayDetails(field1, field2, field3, field4, field5, status) {
+    const modal = document.getElementById('detailsModal');
+    const modalContent = document.getElementById('modalContent');
+
+    // Populate modal content
+    modalContent.innerHTML = `
+        <p><strong>Field 1:</strong> ${field1}</p>
+        <p><strong>Field 2:</strong> ${field2}</p>
+        <p><strong>Field 3:</strong> ${field3}</p>
+        <p><strong>Field 4:</strong> ${field4}</p>
+        <p><strong>Field 5:</strong> ${field5}</p>
+        <p><strong>Status:</strong> ${status}</p>
+    `;
+
+    // Display the modal
+    modal.classList.remove('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const closeModal = document.getElementById('closeModal');
+    const modal = document.getElementById('detailsModal');
+
+    closeModal.addEventListener('click', function () {
+        modal.classList.add('hidden');
+    });
+
+    // Close the modal if clicked outside
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+    });
+</script>
 </html>
