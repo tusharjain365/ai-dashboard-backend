@@ -9,13 +9,12 @@
 <body>
 <div class="">
         <div class="flex h-screen overflow-hidden">
-
             <!-- sidebar -->
             <aside
                 class="absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 -translate-x-full">
                 <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
                     <a href="/">
-                        <img src="" alt="Logo" />
+                    <img src="{{ asset('images/ai-salesman-2.svg') }}" alt="Logo" style="height:40px; margin:10px 0" />
                     </a>
 
                     <button aria-controls="sidebar" class="block hidden">
@@ -154,7 +153,10 @@
                             </ul>
 
                             <!-- User Area -->
-                            <li><a href="#user">User</a></li>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button>logout</button>
+                            </form>
                         </div>
                     </div>
                 </header>
@@ -248,7 +250,7 @@
                     id="call-instructions-textarea"
                     class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     name="call_instructions" rows="5"
-                    placeholder="Start typing here..."></textarea>
+                    placeholder="Start typing here...">{{$call_instructions}}</textarea>
                 <div class="text-right text-sm text-gray-600 mt-2" id="word-count-call">
                     Letter count: 0 / 300
                 </div>
@@ -263,7 +265,7 @@
                     id="follow-instructions-textarea"
                     class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     name="follow_up_instructions" rows="5"
-                    placeholder="Start typing here..."></textarea>
+                    placeholder="Start typing here...">{{$follow_up_instructions}}</textarea>
                 <div class="text-right text-sm text-gray-600 mt-2" id="word-count-follow">
                     Letter count: 0 / 300
                 </div>
@@ -427,7 +429,6 @@ function removeFile(button) {
 
         // Handle file upload
         document.getElementById('file-upload').addEventListener('change', function () {
-            console.log("this is it");
             const fileList = document.getElementById('file-list');
             const files = Array.from(this.files);
 

@@ -9,16 +9,15 @@
 <body>
 <div class="">
         <div class="flex h-screen overflow-hidden">
-
             <!-- sidebar -->
             <aside
                 class="absolute left-0 top-0 z-[999] flex h-screen w-72.5 flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 -translate-x-full">
                 <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
                     <a href="/">
-                        <img src={Logo} alt="Logo" />
+                        <img src="{{ asset('images/ai-salesman-2.svg') }}" alt="Logo" style="height:40px; margin:10px 0" />
                     </a>
 
-                    <button aria-controls="sidebar" class="block hidden">
+                    <button aria-controls="sidebar" class="block lg:hidden ">
                         <svg class="fill-current" width="20" height="18" viewBox="0 0 20 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -110,7 +109,7 @@
                         <div class="flex items-center gap-2 sm:gap-4">
                             <button aria-controls="sidebar"
                                 class="z-[99999] block rounded-sm border border-stroke bg-white p-1.5 shadow-sm lg:hidden">
-                                <span class="relative block h-5.5 w-5.5 cursor-pointer">
+                                <!-- <span class="relative block h-5.5 w-5.5 cursor-pointer">
                                     <span class="relative block h-full w-full">
                                         <span
                                             class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black transition-all duration-200 ease-in-out "></span>
@@ -125,7 +124,12 @@
                                         <span
                                             class="absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black transition-all duration-200 ease-in-out "></span>
                                     </span>
-                                </span>
+                                </span> -->
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+</svg>
+
                             </button>
 
                             <a href="/" class="block flex-shrink-0 lg:hidden">
@@ -154,7 +158,10 @@
                             </ul>
 
                             <!-- User Area -->
-                            <li><a href="#user">User</a></li>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button>logout</button>
+                            </form>
                         </div>
                     </div>
                 </header>
@@ -174,13 +181,13 @@
                             </button>
                             <div class="bg-white p-6">
                             <h2 class="text-lg font-medium text-gray-900 mb-4">Enter your follow-up instructions</h2>
-                            <form method="post">
+                            <form method="post" action="{{ route('submit.follow') }}">
                                 @csrf
                             <textarea
                                 id="follow-instructions-textarea"
                                 class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 name="follow_up_instructions" rows="5"
-                                placeholder="Start typing here..."></textarea>
+                                placeholder="Start typing here...">{{$user->follow_up_instructions}}</textarea>
                             <div class="text-right text-sm text-gray-600 mt-2" id="word-count-follow">
                                 Letter count: 0 / 300
                             </div>
@@ -239,7 +246,7 @@
                                 <div class="mt-4 flex items-end justify-between">
                                     <div>
                                         <h4 class="text-2xl font-bold text-black ">
-                                            15k
+                                            {{$user->total_users}}
                                         </h4>
                                         <span class="text-sm font-medium">Total Users</span>
                                     </div>
@@ -290,7 +297,7 @@
                                 <div class="mt-4 flex items-end justify-between">
                                     <div>
                                         <h4 class="text-2xl font-bold text-black ">
-                                            10k
+                                        {{isset($callStatistics->total_calls_connected) ? $callStatistics->total_calls_connected : 0}}
                                         </h4>
                                         <span class="text-sm font-medium">Total Calls Connected</span>
                                     </div>
@@ -341,7 +348,7 @@
                                 <div class="mt-4 flex items-end justify-between">
                                     <div>
                                         <h4 class="text-2xl font-bold text-black ">
-                                            10k
+                                        {{isset($callStatistics->total_calls_not_connected) ? $callStatistics->total_calls_not_connected : 0}}
                                         </h4>
                                         <span class="text-sm font-medium">Total Calls Connected</span>
                                     </div>
@@ -368,7 +375,7 @@
                                 <div class="mt-4 flex items-end justify-between">
                                     <div>
                                         <h4 class="text-2xl font-bold text-black ">
-                                            36
+                                        {{isset($callStatistics->total_leads_acquired) ? $callStatistics->total_leads_acquired : 0}}
                                         </h4>
                                         <span class="text-sm font-medium">Total Leads acquired</span>
                                     </div>
@@ -431,7 +438,38 @@
                                             </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-300">
-                                            <tr key={item.id}>
+                                        @foreach ($businessData as $data)
+                                            <tr key="data->id">
+                                                <td class="px-6 py-4 overflow-x-auto">{{$data->business_name}}</td>
+                                                <td class="px-6 py-4 overflow-x-auto">{{$data->phone}}</td>
+                                                <td class="px-6 py-4 overflow-x-auto">{{$data->website}}</td>
+                                                <td class="px-6 py-4 overflow-x-auto">{{$data->email}}</td>
+                                                <td class="px-6 py-4 overflow-x-auto">{{$data->name}}</td>
+                                                <td class="px-6 py-4 overflow-x-auto">
+                                                    <span
+                                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                        {{$data->status}}
+                                                    </span>
+                                                </td>
+                                                <td class="px-6 py-2 overflow-x-auto space-y-2">
+
+                                                    <button
+                                                        class="text-white hover:text-white text-sm flex justify-center items-center bg-blue-400 p-2 rounded-lg"
+                                                        onclick="displayDetails({{$data}})"
+                                                        >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
+                                                            class="w-5 h-5">
+                                                            <path strokeLinecap="round" strokeLinejoin="round"
+                                                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                                        </svg>
+                                                        Details
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                            <!-- <tr key={item.id}>
                                                 <td class="px-6 py-4 overflow-x-auto">{item.field1}</td>
                                                 <td class="px-6 py-4 overflow-x-auto">{item.field2}</td>
                                                 <td class="px-6 py-4 overflow-x-auto">{item.field3}</td>
@@ -458,36 +496,7 @@
                                                         Details
                                                     </button>
                                                 </td>
-                                            </tr>
-
-                                            <tr key={item.id}>
-                                                <td class="px-6 py-4 overflow-x-auto">{item.field1}</td>
-                                                <td class="px-6 py-4 overflow-x-auto">{item.field2}</td>
-                                                <td class="px-6 py-4 overflow-x-auto">{item.field3}</td>
-                                                <td class="px-6 py-4 overflow-x-auto">{item.field4}</td>
-                                                <td class="px-6 py-4 overflow-x-auto">{item.field5}</td>
-                                                <td class="px-6 py-4 overflow-x-auto">
-                                                    <span
-                                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                        {item.status}
-                                                    </span>
-                                                </td>
-                                                <td class="px-6 py-2 overflow-x-auto space-y-2">
-
-                                                    <button
-                                                        class="text-white hover:text-white text-sm flex justify-center items-center bg-blue-400 p-2 rounded-lg"
-                                                        onclick="displayDetails('{item.field1}', '{item.field2}', '{item.field3}', '{item.field4}', '{item.field5}', '{item.status}')"
-                                                        >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
-                                                            class="w-5 h-5">
-                                                            <path strokeLinecap="round" strokeLinejoin="round"
-                                                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                                        </svg>
-                                                        Details
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -526,18 +535,19 @@
             // Update the display with current word count
             wordCountDisplayFollow.textContent = `Letter count: ${textareaFollow.value.length} / 300`;
         });
-    function displayDetails(field1, field2, field3, field4, field5, status) {
+    function displayDetails(businessData) {
+        console.log(businessData);
     const modal = document.getElementById('detailsModal');
     const modalContent = document.getElementById('modalContent');
 
     // Populate modal content
     modalContent.innerHTML = `
-        <p><strong>Field 1:</strong> ${field1}</p>
-        <p><strong>Field 2:</strong> ${field2}</p>
-        <p><strong>Field 3:</strong> ${field3}</p>
-        <p><strong>Field 4:</strong> ${field4}</p>
-        <p><strong>Field 5:</strong> ${field5}</p>
-        <p><strong>Status:</strong> ${status}</p>
+        <p><strong>Field 1:</strong> ${businessData.business_name}</p>
+        <p><strong>Field 2:</strong> ${businessData.phone}</p>
+        <p><strong>Field 3:</strong> ${businessData.website}</p>
+        <p><strong>Field 4:</strong> ${businessData.email}</p>
+        <p><strong>Field 5:</strong> ${businessData.name}</p>
+        <p><strong>Status:</strong> ${businessData.status}</p>
     `;
 
     // Display the modal
