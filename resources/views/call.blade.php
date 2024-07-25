@@ -11,13 +11,15 @@
         <div class="flex h-screen overflow-hidden">
             <!-- sidebar -->
             <aside
-                class="absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 -translate-x-full">
+                class="absolute left-0 top-0 z-[9999] flex h-screen w-56 flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static"
+                id="sidebar">
                 <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
                     <a href="/">
-                    <img src="{{ asset('images/ai-salesman-2.svg') }}" alt="Logo" style="height:40px; margin:10px 0" />
+                        <img src="{{ asset('images/ai-salesman-2.svg') }}" alt="Logo"
+                            style="height:40px; margin:10px 0" />
                     </a>
 
-                    <button aria-controls="sidebar" class="block hidden">
+                    <button aria-controls="sidebar" class="block lg:hidden " id="hide-sidebar">
                         <svg class="fill-current" width="20" height="18" viewBox="0 0 20 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -36,8 +38,8 @@
                             <ul class="mb-6 flex flex-col gap-1.5">
                                 <li class="">
                                     <a href="/"
-                                        class="group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium text-black hover:text-white duration-300 ease-in-out hover:bg-[#8b3dff]  text-black">
-                                        <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                        class="group relative flex items-center gap-2.5 rounded-md px-4 py-2 font-medium text-black hover:text-white duration-300 ease-in-out hover:bg-[#8b3dff]  text-black text-sm">
+                                        <svg class="fill-current" width="16" height="16" viewBox="0 0 18 18" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M6.10322 0.956299H2.53135C1.5751 0.956299 0.787598 1.7438 0.787598 2.70005V6.27192C0.787598 7.22817 1.5751 8.01567 2.53135 8.01567H6.10322C7.05947 8.01567 7.84697 7.22817 7.84697 6.27192V2.72817C7.8751 1.7438 7.0876 0.956299 6.10322 0.956299ZM6.60947 6.30005C6.60947 6.5813 6.38447 6.8063 6.10322 6.8063H2.53135C2.2501 6.8063 2.0251 6.5813 2.0251 6.30005V2.72817C2.0251 2.44692 2.2501 2.22192 2.53135 2.22192H6.10322C6.38447 2.22192 6.60947 2.44692 6.60947 2.72817V6.30005Z"
@@ -56,9 +58,10 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/call" class="group relative flex items-center gap-2.5
-                                        rounded-md py-2 px-4 font-medium text-black text-white duration-300 ease-in-out bg-[#8b3dff] text-black ">
-                                        <svg class="fill-current" width="18" height="19" viewBox="0 0 18 19" fill="none"
+                                    <a href="/call"
+                                        class="group relative flex items-center gap-2
+                                        rounded-md py-2 px-4 font-medium text-black text-white duration-300 ease-in-out bg-[#8b3dff] text-black text-sm">
+                                        <svg class="fill-current" width="16" height="16" viewBox="0 0 18 19" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g clipPath="url(#clip0_130_9756)">
                                                 <path
@@ -79,8 +82,8 @@
                                 <li>
                                     <a href="/plans" class="group relative flex items-center gap-2.5 rounded-md
                                         py-2 px-4 font-medium text-black hover:text-white duration-300
-                                        ease-in-out hover:bg-[#8b3dff] text-black">
-                                        <svg version="1.1" id="Layer_1" width="20" height="20"
+                                        ease-in-out hover:bg-[#8b3dff] text-black text-sm">
+                                        <svg version="1.1" id="Layer_1" width="18" height="18"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"
                                             enable-background="new 0 0 128 128" fill="#000000">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -107,32 +110,19 @@
                 <header class="sticky top-0 z-[999] flex w-full bg-white drop-shadow-md">
                     <div class="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
                         <div class="flex items-center gap-2 sm:gap-4">
-                            <button aria-controls="sidebar"
+                            <button aria-controls="sidebar" id="open-sidebar"
                                 class="z-[99999] block rounded-sm border border-stroke bg-white p-1.5 shadow-sm lg:hidden">
-                                <span class="relative block h-5.5 w-5.5 cursor-pointer">
-                                    <span class="relative block h-full w-full">
-                                        <span
-                                            class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black transition-all duration-200 ease-in-out "></span>
-                                        <span
-                                            class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black transition-all duration-200 ease-in-out "></span>
-                                        <span
-                                            class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black transition-all duration-200 ease-in-out "></span>
-                                    </span>
-                                    <span class="absolute right-0 h-full w-full rotate-45">
-                                        <span
-                                            class="absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black transition-all duration-200 ease-in-out "></span>
-                                        <span
-                                            class="absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black transition-all duration-200 ease-in-out "></span>
-                                    </span>
-                                </span>
-                            </button>
 
-                            <a href="/" class="block flex-shrink-0 lg:hidden">
-                                <img src="path/to/your/logo-icon.png" alt="Logo" class="h-10" />
-                            </a>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+
+                            </button>
                             <a href="/call" class="block flex-shrink-0">
                                 <button type="button"
-                                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100  ">
+                                    class="py-2.5 px-5 me-2 mb-0.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100  ">
                                     Upload File
                                 </button>
                             </a>
@@ -143,20 +133,18 @@
                         </div>
 
                         <div class="flex items-center gap-3 sm:gap-7">
-                            <ul class="flex items-center gap-2 sm:gap-4">
-                                <!-- Dark Mode Toggler -->
-                                <!-- <DarkModeSwitcher /> -->
-                                <!-- Notification Menu Area -->
-                                <li><a href="#notifications">Notifications</a></li>
-                                <!-- Chat Notification Area -->
-                                <!-- <DropdownMessage /> -->
-                            </ul>
 
                             <!-- User Area -->
-                            <form action="{{ route('logout') }}" method="post">
-                                @csrf
-                                <button>logout</button>
-                            </form>
+                            <div
+                                class="flex items-center rounded-lg text-black hover:bg-gray-100 justify-around p-2 gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                </svg>
+
+                                <a class="" href="{{ route('profile.edit') }}">Profile</a>
+                            </div>
                         </div>
                     </div>
                 </header>
@@ -292,6 +280,7 @@
                         <li>Client's Website as <strong>Website</strong></li>
                         <li>Founder's Name as <strong>Name</strong></li>
                     </ul>
+                    Please select all the files at once
                 </p>
                 <div>
                     <label for="file-upload" class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 cursor-pointer hover:bg-gray-50 transition duration-150 ease-in-out">
@@ -376,21 +365,18 @@ document.getElementById('file-upload').addEventListener('change', function(event
 
     Array.from(fileList).forEach(file => {
         const listItem = document.createElement('li');
-        listItem.className = 'flex items-center justify-between py-2 bg-gray-100 px-2 rounded-md';
+        listItem.className = 'flex items-center justify-between py-2 bg-gray-100 px-2 rounded-md my-2';
         listItem.innerHTML = `
             <span class="text-sm text-gray-700">${file.name}</span>
-            <button type="button" class="text-red-500 hover:text-red-700 focus:outline-none" onclick="removeFile(this)">
-                Remove
-            </button>
         `;
         fileListElement.appendChild(listItem);
     });
 });
 
-function removeFile(button) {
-    const listItem = button.closest('li');
-    listItem.remove();
-}
+// function removeFile(button) {
+//     const listItem = button.closest('li');
+//     listItem.remove();
+// }
         
         const textareaCall= document.getElementById('call-instructions-textarea');
         const textareaFollow= document.getElementById('follow-instructions-textarea');
@@ -427,34 +413,21 @@ function removeFile(button) {
             wordCountDisplayFollow.textContent = `Letter count: ${textareaFollow.value.length} / 300`;
         });
 
-        // Handle file upload
-        document.getElementById('file-upload').addEventListener('change', function () {
-            const fileList = document.getElementById('file-list');
-            const files = Array.from(this.files);
+        const sidebar = document.getElementById('sidebar');
+    const showSidebarBtn = document.getElementById('open-sidebar');
+    const hideSidebarBtn = document.getElementById('hide-sidebar');
 
-            files.forEach(file => {
-                const listItem = document.createElement('li');
-                listItem.classList.add('flex', 'items-center', 'justify-between', 'py-2', 'bg-gray-100', 'px-2', 'rounded-md');
+    showSidebarBtn.addEventListener('click', function () {
+        sidebar.classList.add('translate-x-0');
+        sidebar.classList.remove('-translate-x-full');
+    });
 
-                const fileNameSpan = document.createElement('span');
-                fileNameSpan.classList.add('text-sm', 'text-gray-700');
-                fileNameSpan.textContent = file.name;
+    hideSidebarBtn.addEventListener('click', function () {
+        console.log("click");
+        sidebar.classList.remove('translate-x-0');
+        sidebar.classList.add('-translate-x-full');
+    });
 
-                const removeButton = document.createElement('button');
-                removeButton.classList.add('text-red-500', 'hover:text-red-700', 'focus:outline-none');
-                removeButton.textContent = 'Remove';
-                removeButton.addEventListener('click', function () {
-                    fileList.removeChild(listItem);
-                });
-
-                listItem.appendChild(fileNameSpan);
-                listItem.appendChild(removeButton);
-                fileList.appendChild(listItem);
-            });
-
-            // Optionally, you can clear the input field after the files are added to the list
-            // this.value = '';
-        });
 
     </script>
     

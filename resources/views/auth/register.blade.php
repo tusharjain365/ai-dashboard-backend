@@ -18,14 +18,14 @@
 
         <!-- Business Name -->
         <div>
-            <x-input-label for="business_name" :value="__('Name')" />
+            <x-input-label for="business_name" :value="__('Business Name')" />
             <x-text-input id="business_name" class="block mt-1 w-full" type="text" name="business_name" :value="old('business_name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Business Email Address -->
         <div class="mt-4">
-            <x-input-label for="business_email" :value="__('Email')" />
+            <x-input-label for="business_email" :value="__('Business Email')" />
             <x-text-input id="business_email" class="block mt-1 w-full" type="email" name="business_email" :value="old('business_email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>

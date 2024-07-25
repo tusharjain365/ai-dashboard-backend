@@ -10,6 +10,6 @@ class BusinessData extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id','business_name', 'email', 'phone', 'website', 'name', 'status',
+        'user_id','business_name', 'email', 'phone', 'website', 'name', 'status','call_id'
     ];
 }
