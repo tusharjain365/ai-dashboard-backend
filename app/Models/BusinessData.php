@@ -10,6 +10,11 @@ class BusinessData extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id','business_name', 'email', 'phone', 'website', 'name', 'status','call_id'
+        'user_id','business_name', 'email', 'phone', 'name', 'status','call_id', 'country_code', 'call_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

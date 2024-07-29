@@ -266,7 +266,7 @@
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
                     <h2 class="text-lg font-medium text-gray-900">Upload CSV Files</h2>
                     <div class="mt-4 sm:mt-0">
-                        <a href="/sample.csv" download="sample.csv" class="text-md text-red-600 hover:text-red-800">
+                        <a href="{{url('/sample-csv')}}" download="sample.csv" class="text-md text-red-600 hover:text-red-800">
                             Download Sample CSV
                         </a>
                     </div>
@@ -274,11 +274,11 @@
                 <p class="text-sm text-gray-600 mb-4">
                     Please upload CSV files containing the following fields:
                     <ul class="text-sm text-gray-600 mb-4 list-disc pl-5">
-                        <li>Client's Business Name as <strong>Business Name</strong></li>
-                        <li>Client's Email as <strong>Email ID</strong></li>
-                        <li>Client's Phone number as <strong>Phone</strong></li>
-                        <li>Client's Website as <strong>Website</strong></li>
-                        <li>Founder's Name as <strong>Name</strong></li>
+                        <li>Client's Business Name as <strong>business_name</strong></li>
+                        <li>Client's Email as <strong>email_id</strong></li>
+                        <li>Client's Phone number as <strong>phone</strong></li>
+                        <li>Founder's Name as <strong>name</strong></li>
+                        <li>Country Code as <strong>country_code</strong></li>
                     </ul>
                     Please select all the files at once
                 </p>

@@ -15,6 +15,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get("/sample-csv",function () {
+        $path=storage('app/sample.csv');
+
+        return response()->download($path);
+    });
+
     Route::get('/call', [CallController::class, 'index']);
 
     Route::get('/plans', function () {

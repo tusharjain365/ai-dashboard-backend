@@ -17,7 +17,6 @@ return new class extends Migration
         $table->string('business_name');
         $table->string('email');
         $table->string('phone');
-        $table->string('website')->nullable();
         $table->string('contact_name');
         $table->string('call_id')->nullable();
         $table->timestamps();

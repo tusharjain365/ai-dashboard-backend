@@ -406,9 +406,6 @@
                                                         Phone</th>
                                                     <th
                                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Website</th>
-                                                    <th
-                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Email</th>
                                                     <th
                                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -491,7 +488,6 @@
     modalContent.innerHTML = `
         <p><strong>Business Name:</strong> ${businessData.business_name}</p>
         <p><strong>Phone:</strong> ${businessData.phone}</p>
-        <p><strong>Website:</strong> ${businessData.website}</p>
         <p><strong>Business Email:</strong> ${businessData.email}</p>
         <p><strong>Founder's Name:</strong> ${businessData.name}</p>
         <p><strong>Status:</strong> ${statusDescription}</p>
@@ -551,7 +547,6 @@
             row.innerHTML = `
                 <td class="max-w-8 px-6 py-4 text-sm font-medium text-gray-900 break-words">${data.business_name}</td>
                 <td class="max-w-8 px-6 py-4 text-sm text-gray-500 break-words whitespace-normal">${data.phone}</td>
-                <td class="max-w-8 px-6 py-4 text-sm text-gray-500 break-words whitespace-normal">${data.website}</td>
                 <td class="max-w-8 px-6 py-4 text-sm text-gray-500 break-words whitespace-normal">${data.email}</td>
                 <td class="max-w-8 px-6 py-4 text-sm text-gray-500 break-words whitespace-normal">${data.name}</td>
                 <td class="max-w-8 px-6 py-4">
@@ -616,7 +611,6 @@
         filteredData = businessData.filter(data =>
             data.business_name.toLowerCase().includes(searchTerm) ||
             data.phone.toLowerCase().includes(searchTerm) ||
-            data.website.toLowerCase().includes(searchTerm) ||
             data.email.toLowerCase().includes(searchTerm) ||
             data.name.toLowerCase().includes(searchTerm) ||
             data.status.toLowerCase().includes(searchTerm)
